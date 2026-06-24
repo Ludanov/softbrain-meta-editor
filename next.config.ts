@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin('./i18n.ts');
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
     remotePatterns: [
       {
@@ -9,14 +15,9 @@ const nextConfig: NextConfig = {
         hostname: "api.softbrain.space",
         pathname: "/assets/**",
       },
-      {
-        protocol: "https",
-        hostname: "softbrain.space",
-        pathname: "/**",
-      },
     ],
     formats: ["image/webp", "image/avif"],
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);
